@@ -1,0 +1,8 @@
+
+{
+  "name": "Project Progress Tracker",
+  "description": "A web-based application for users and admins to collaboratively report and monitor the progress of various projects in real-time.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

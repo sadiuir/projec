@@ -1,0 +1,52 @@
+
+<div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 px-4 sm:px-0">
+  <div>
+    <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Projects Dashboard</h1>
+    <p class="mt-2 text-sm text-gray-600">An overview of all ongoing and completed projects.</p>
+  </div>
+  @if(currentUser()?.role === 'Admin Kantor') {
+    <div class="flex-shrink-0">
+      <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-blue-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-2 hover:text-blue-500 px-3 py-2 text-sm shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+        <span>Import Projects (CSV)</span>
+        <input id="file-upload" name="file-upload" type="file" class="sr-only" (change)="onFileSelected($event)" accept=".csv">
+      </label>
+    </div>
+  }
+</div>
+
+@if(importError()) {
+  <div class="my-4 p-4 bg-red-100 text-red-700 rounded-md text-sm">{{ importError() }}</div>
+}
+@if(importSuccess()) {
+  <div class="my-4 p-4 bg-green-100 text-green-700 rounded-md text-sm">Projects imported successfully!</div>
+}
+
+
+<div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  @for (project of projects(); track project.id) {
+    <a [routerLink]="['/project', project.id]" class="block group">
+      <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden h-full flex flex-col">
+        <div class="p-6 flex-grow">
+          <div class="flex justify-between items-start">
+            <h2 class="text-lg font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">{{ project.name }}</h2>
+            <span [class]="'text-xs font-medium px-2.5 py-0.5 rounded-full ' + getStatusColor(project.status)">
+              {{ project.status }}
+            </span>
+          </div>
+          <p class="mt-2 text-sm text-gray-600 line-clamp-2">{{ project.description }}</p>
+        </div>
+        <div class="px-6 pb-6">
+          <div class="flex justify-between items-center mb-1">
+            <span class="text-sm font-medium text-gray-700">Progress</span>
+            <span class="text-sm font-medium text-gray-700">{{ project.progress }}%</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2.5">
+            <div [class]="'h-2.5 rounded-full ' + getProgressBarColor(project.progress)" [style.width.%]="project.progress"></div>
+          </div>
+        </div>
+      </div>
+    </a>
+  } @empty {
+    <p class="text-center text-gray-500 col-span-full">No projects found.</p>
+  }
+</div>

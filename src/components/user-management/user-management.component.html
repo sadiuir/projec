@@ -1,0 +1,81 @@
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+  <!-- Create User Form -->
+  <div class="lg:col-span-1">
+    <div class="px-4 sm:px-0 mb-6">
+      <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Create New User</h1>
+      <p class="mt-2 text-sm text-gray-600">Add a new user to the system and assign a role.</p>
+    </div>
+    <div class="bg-white shadow-lg rounded-lg p-8">
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <div>
+          <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
+          <div class="mt-2">
+            <input type="text" id="username" formControlName="username" class="block w-full rounded-md border-0 py-1.5 bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6" style="color-scheme: light;">
+          </div>
+        </div>
+        <div>
+          <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+          <div class="mt-2">
+            <input type="password" id="password" formControlName="password" class="block w-full rounded-md border-0 py-1.5 bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6" style="color-scheme: light;">
+          </div>
+        </div>
+        <div>
+          <label for="role" class="block text-sm font-medium leading-6 text-gray-900">Role</label>
+          <div class="mt-2">
+            <select id="role" formControlName="role" class="block w-full rounded-md border-0 py-1.5 bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6" style="color-scheme: light;">
+              <option value="Admin Lapangan">Admin Lapangan</option>
+              <option value="Admin Kantor">Admin Kantor</option>
+              <option value="Super Admin">Super Admin</option>
+            </select>
+          </div>
+        </div>
+        <div class="mt-6 flex justify-end">
+          <button type="submit" [disabled]="userForm.invalid" class="rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:bg-blue-300">Create User</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- User List -->
+  <div class="lg:col-span-2">
+     <div class="px-4 sm:px-0 mb-6">
+      <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Existing Users</h1>
+      <p class="mt-2 text-sm text-gray-600">A list of all users currently in the system.</p>
+    </div>
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @for (user of users(); track user.username) {
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ user.name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <span [class]="'px-2 inline-flex text-xs leading-5 font-semibold rounded-full ' + getRoleColor(user.role)">
+                                    {{ user.role }}
+                                </span>
+                            </td>
+                        </tr>
+                    } @empty {
+                        <tr>
+                            <td colspan="2" class="px-6 py-4 text-center text-sm text-gray-500">No users found.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+  </div>
+
+  @if (showSuccessMessage()) {
+    <div class="fixed bottom-5 right-5 bg-green-500 text-white py-3 px-6 rounded-lg shadow-xl animate-bounce">
+      User created successfully!
+    </div>
+  }
+</div>

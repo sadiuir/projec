@@ -1,0 +1,66 @@
+
+<div class="max-w-3xl mx-auto">
+  <div class="px-4 sm:px-0 mb-6">
+    <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Create New Project</h1>
+    <p class="mt-2 text-sm text-gray-600">Fill out the form below to add a new project to the tracker.</p>
+  </div>
+  
+  <div class="bg-white shadow-lg rounded-lg p-8">
+    <form [formGroup]="projectForm" (ngSubmit)="onSubmit()" class="space-y-6">
+      <div>
+        <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Project Name</label>
+        <div class="mt-2">
+          <input type="text" id="name" formControlName="name" class="block w-full rounded-md border-0 py-1.5 bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6" style="color-scheme: light;">
+        </div>
+      </div>
+
+      <div>
+        <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
+        <div class="mt-2">
+          <textarea id="description" formControlName="description" rows="4" class="block w-full rounded-md border-0 py-1.5 bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6" style="color-scheme: light;"></textarea>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
+        <div>
+          <label for="workVolume" class="block text-sm font-medium leading-6 text-gray-900">Work Volume</label>
+          <div class="mt-2">
+            <input type="text" id="workVolume" formControlName="workVolume" placeholder="e.g., 5 modules, 1 platform" class="block w-full rounded-md border-0 py-1.5 bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6" style="color-scheme: light;">
+          </div>
+        </div>
+        <div>
+          <label for="totalCost" class="block text-sm font-medium leading-6 text-gray-900">Total Project Cost</label>
+          <div class="mt-2">
+            <input type="number" id="totalCost" formControlName="totalCost" placeholder="e.g., 50000" class="block w-full rounded-md border-0 py-1.5 bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6" style="color-scheme: light;">
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
+        <div>
+          <label for="startDate" class="block text-sm font-medium leading-6 text-gray-900">Start Date</label>
+          <div class="mt-2">
+            <input type="date" id="startDate" formControlName="startDate" class="block w-full rounded-md border-0 py-1.5 bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6" style="color-scheme: light;">
+          </div>
+        </div>
+        <div>
+          <label for="endDate" class="block text-sm font-medium leading-6 text-gray-900">End Date</label>
+          <div class="mt-2">
+            <input type="date" id="endDate" formControlName="endDate" class="block w-full rounded-md border-0 py-1.5 bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6" style="color-scheme: light;">
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 flex items-center justify-end gap-x-6">
+        <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+        <button type="submit" [disabled]="projectForm.invalid" class="rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:bg-blue-300">Create Project</button>
+      </div>
+    </form>
+  </div>
+
+  @if (showSuccessMessage()) {
+    <div class="fixed bottom-5 right-5 bg-green-500 text-white py-3 px-6 rounded-lg shadow-xl animate-bounce">
+      Project created successfully!
+    </div>
+  }
+</div>
